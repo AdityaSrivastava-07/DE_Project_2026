@@ -1,30 +1,28 @@
 {
-  "team_no": "01",
+  "team_number": "T0056",
   "section": "D",
+  "group_lead": {
+    "name": "Aditya Srivastava",
+    "enrollment_no": "2501010029",
+    "github": "AdityaSrivastava-07"
+  },
   "members": [
-    {
-      "name": "Aditya Srivastava",
-      "enrollment_no": "2501010029",
-      "github_username": "AdityaSrivastava-07",
-      "role": "Group Lead"
-    },
     {
       "name": "Rajveer Kumar",
       "enrollment_no": "2501010368",
-      "github_username": "rajveerkumar0602-cmyk",
-      "role": "Member"
+      "github": "rajveerkumar0602-cmyk"
     },
     {
       "name": "Yash Dangayach",
       "enrollment_no": "2501010600",
-      "github_username": "yashdangayach0-cloud",
-      "role": "Member"
+      "github": "yashdangayach0-cloud"
     },
     {
       "name": "Naitik",
       "enrollment_no": "2501010291",
-      "github_username": "Naitik-93",
-      "role": "Member"
+      "github": "Naitik-93"
     }
-  ]
+  ],
+  "postgres_version": "15",
+  "laptop_used_for_benchmarks": "Apple MacBook Pro"
 }

@@ -27,7 +27,7 @@
 | Member 3 | Yash Dangayach | 2501010600 | yashdangayach0-cloud |
 | Member 4 | Naitik | 2501010291 | Naitik-93 |
 
-**Team No.:** 01  
+**Team No.:** T0056  
 **Section:** D  
 **Repository URL:** https://github.com/AdityaSrivastava-07/DE_Project_2026
 
