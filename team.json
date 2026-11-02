@@ -1,0 +1,30 @@
+{
+  "team_no": "01",
+  "section": "D",
+  "members": [
+    {
+      "name": "Aditya Srivastava",
+      "enrollment_no": "2501010029",
+      "github_username": "AdityaSrivastava-07",
+      "role": "Group Lead"
+    },
+    {
+      "name": "Rajveer Kumar",
+      "enrollment_no": "2501010368",
+      "github_username": "rajveerkumar0602-cmyk",
+      "role": "Member"
+    },
+    {
+      "name": "Yash Dangayach",
+      "enrollment_no": "2501010600",
+      "github_username": "yashdangayach0-cloud",
+      "role": "Member"
+    },
+    {
+      "name": "Naitik",
+      "enrollment_no": "2501010291",
+      "github_username": "Naitik-93",
+      "role": "Member"
+    }
+  ]
+}

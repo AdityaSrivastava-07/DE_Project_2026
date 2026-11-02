@@ -22,12 +22,14 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Aditya Srivastava | 2501010029 | AdityaSrivastava-07 |
+| Member 2 | Rajveer Kumar | 2501010368 | rajveerkumar0602-cmyk |
+| Member 3 | Yash Dangayach | 2501010600 | yashdangayach0-cloud |
+| Member 4 | Naitik | 2501010291 | Naitik-93 |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** 01  
+**Section:** D  
+**Repository URL:** https://github.com/AdityaSrivastava-07/DE_Project_2026
 
 ---
 
