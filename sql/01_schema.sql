@@ -1,4 +1,3 @@
--- sql/01_schema.sql
 CREATE SCHEMA linkedin;
 SET search_path TO linkedin;
 
@@ -60,7 +59,6 @@ CREATE TABLE connections (
     member_b INT NOT NULL REFERENCES members(member_id) ON DELETE CASCADE,
     connected_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (member_a, member_b),
-    -- Stores the relationship exactly once and prevents self-connections
     CONSTRAINT chk_connection_order CHECK (member_a < member_b)
 );
 
@@ -73,7 +71,7 @@ CREATE TABLE invitations (
     status TEXT NOT NULL,
     responded_at TIMESTAMPTZ,
     CONSTRAINT chk_invitation_no_self CHECK (sender_id <> recipient_id),
-    CONSTRAINT chk_invitation_status CHECK (status IN ('PENDING', 'ACCEPTED', 'IGNORED')),
+    CONSTRAINT chk_invitation_status CHECK (status IN ('PENDING', 'ACCEPTED', 'IGNORED', 'WITHDRAWN')),
     CONSTRAINT chk_invitation_timeline CHECK (responded_at IS NULL OR responded_at >= sent_at),
     CONSTRAINT chk_invitation_pending_null CHECK ((status = 'PENDING' AND responded_at IS NULL) OR (status <> 'PENDING' AND responded_at IS NOT NULL))
 );
@@ -95,7 +93,6 @@ CREATE TABLE jobs (
     CONSTRAINT chk_job_dates CHECK (closes_at > posted_at),
     CONSTRAINT chk_job_salary CHECK (max_salary_lpa IS NULL OR min_salary_lpa IS NULL OR max_salary_lpa >= min_salary_lpa),
     CONSTRAINT chk_job_experience CHECK (min_experience IS NULL OR min_experience >= 0),
-    -- Remote jobs must have no city; non-remote jobs must have a city
     CONSTRAINT chk_job_remote_city CHECK ((workplace_type = 'REMOTE' AND city_id IS NULL) OR (workplace_type <> 'REMOTE' AND city_id IS NOT NULL))
 );
 
@@ -113,9 +110,8 @@ CREATE TABLE applications (
     easy_apply BOOLEAN NOT NULL DEFAULT false,
     status TEXT NOT NULL,
     status_updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    -- Prevents a member from applying to the same job twice
     CONSTRAINT uq_job_application UNIQUE (job_id, member_id),
-    CONSTRAINT chk_app_status CHECK (status IN ('APPLIED', 'VIEWED', 'SHORTLISTED', 'INTERVIEW', 'OFFER', 'HIRED', 'REJECTED')),
+    CONSTRAINT chk_app_status CHECK (status IN ('APPLIED', 'VIEWED', 'SHORTLISTED', 'INTERVIEW', 'OFFER', 'HIRED', 'REJECTED', 'WITHDRAWN')),
     CONSTRAINT chk_app_timeline CHECK (status_updated_at >= applied_at)
 );
 
@@ -124,6 +120,5 @@ CREATE TABLE profile_views (
     viewer_id INT REFERENCES members(member_id) ON DELETE SET NULL,
     viewed_id INT NOT NULL REFERENCES members(member_id) ON DELETE CASCADE,
     viewed_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    -- viewer_id is NULL when in private mode, but if not NULL, prevent self-views
     CONSTRAINT chk_no_self_view CHECK (viewer_id IS NULL OR viewer_id <> viewed_id)
 );
