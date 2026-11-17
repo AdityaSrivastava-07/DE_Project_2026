@@ -1,0 +1,105 @@
+=== R14 run 1 ===
+Sort  (cost=4406.67..4408.34 rows=667 width=59) (actual time=18.923..18.938 rows=322.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (a.status_updated_at - a.applied_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=261 read=1398
+  ->  HashAggregate  (cost=4343.72..4375.38 rows=667 width=59) (actual time=18.524..18.828 rows=322.00 loops=1)
+        Group Key: c.company_name
+        Filter: (count(*) >= 3)
+        Batches: 1  Memory Usage: 721kB
+        Rows Removed by Filter: 858
+        Buffers: shared hit=258 read=1398
+        ->  Hash Join  (cost=630.50..4302.65 rows=2738 width=35) (actual time=5.255..17.019 rows=2689.00 loops=1)
+              Hash Cond: (j.company_id = c.company_id)
+              Buffers: shared hit=258 read=1398
+              ->  Hash Join  (cost=559.50..4224.45 rows=2738 width=20) (actual time=4.347..15.552 rows=2689.00 loops=1)
+                    Hash Cond: (a.job_id = j.job_id)
+                    Buffers: shared hit=242 read=1388
+                    ->  Seq Scan on applications a  (cost=0.00..3657.76 rows=2738 width=20) (actual time=1.849..12.475 rows=2689.00 loops=1)
+                          Filter: ((status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (status = 'HIRED'::text))
+                          Rows Removed by Filter: 147295
+                          Buffers: shared hit=20 read=1388
+                    ->  Hash  (cost=372.00..372.00 rows=15000 width=8) (actual time=2.477..2.477 rows=15000.00 loops=1)
+                          Buckets: 16384  Batches: 1  Memory Usage: 714kB
+                          Buffers: shared hit=222
+                          ->  Seq Scan on jobs j  (cost=0.00..372.00 rows=15000 width=8) (actual time=0.006..1.268 rows=15000.00 loops=1)
+                                Buffers: shared hit=222
+              ->  Hash  (cost=46.00..46.00 rows=2000 width=23) (actual time=0.901..0.901 rows=2000.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 128kB
+                    Buffers: shared hit=16 read=10
+                    ->  Seq Scan on companies c  (cost=0.00..46.00 rows=2000 width=23) (actual time=0.005..0.696 rows=2000.00 loops=1)
+                          Buffers: shared hit=16 read=10
+Planning:
+  Buffers: shared hit=327 read=2
+Planning Time: 1.142 ms
+Execution Time: 19.036 ms
+=== R14 run 2 ===
+Sort  (cost=4406.67..4408.34 rows=667 width=59) (actual time=15.053..15.066 rows=322.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (a.status_updated_at - a.applied_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=1659
+  ->  HashAggregate  (cost=4343.72..4375.38 rows=667 width=59) (actual time=14.663..14.955 rows=322.00 loops=1)
+        Group Key: c.company_name
+        Filter: (count(*) >= 3)
+        Batches: 1  Memory Usage: 721kB
+        Rows Removed by Filter: 858
+        Buffers: shared hit=1656
+        ->  Hash Join  (cost=630.50..4302.65 rows=2738 width=35) (actual time=3.559..13.493 rows=2689.00 loops=1)
+              Hash Cond: (j.company_id = c.company_id)
+              Buffers: shared hit=1656
+              ->  Hash Join  (cost=559.50..4224.45 rows=2738 width=20) (actual time=3.189..12.619 rows=2689.00 loops=1)
+                    Hash Cond: (a.job_id = j.job_id)
+                    Buffers: shared hit=1630
+                    ->  Seq Scan on applications a  (cost=0.00..3657.76 rows=2738 width=20) (actual time=0.718..9.645 rows=2689.00 loops=1)
+                          Filter: ((status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (status = 'HIRED'::text))
+                          Rows Removed by Filter: 147295
+                          Buffers: shared hit=1408
+                    ->  Hash  (cost=372.00..372.00 rows=15000 width=8) (actual time=2.454..2.455 rows=15000.00 loops=1)
+                          Buckets: 16384  Batches: 1  Memory Usage: 714kB
+                          Buffers: shared hit=222
+                          ->  Seq Scan on jobs j  (cost=0.00..372.00 rows=15000 width=8) (actual time=0.004..1.212 rows=15000.00 loops=1)
+                                Buffers: shared hit=222
+              ->  Hash  (cost=46.00..46.00 rows=2000 width=23) (actual time=0.366..0.367 rows=2000.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 128kB
+                    Buffers: shared hit=26
+                    ->  Seq Scan on companies c  (cost=0.00..46.00 rows=2000 width=23) (actual time=0.005..0.170 rows=2000.00 loops=1)
+                          Buffers: shared hit=26
+Planning:
+  Buffers: shared hit=329
+Planning Time: 0.913 ms
+Execution Time: 15.147 ms
+=== R14 run 3 ===
+Sort  (cost=4406.67..4408.34 rows=667 width=59) (actual time=14.653..14.666 rows=322.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (a.status_updated_at - a.applied_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=1659
+  ->  HashAggregate  (cost=4343.72..4375.38 rows=667 width=59) (actual time=14.261..14.556 rows=322.00 loops=1)
+        Group Key: c.company_name
+        Filter: (count(*) >= 3)
+        Batches: 1  Memory Usage: 721kB
+        Rows Removed by Filter: 858
+        Buffers: shared hit=1656
+        ->  Hash Join  (cost=630.50..4302.65 rows=2738 width=35) (actual time=3.422..13.161 rows=2689.00 loops=1)
+              Hash Cond: (j.company_id = c.company_id)
+              Buffers: shared hit=1656
+              ->  Hash Join  (cost=559.50..4224.45 rows=2738 width=20) (actual time=3.067..12.283 rows=2689.00 loops=1)
+                    Hash Cond: (a.job_id = j.job_id)
+                    Buffers: shared hit=1630
+                    ->  Seq Scan on applications a  (cost=0.00..3657.76 rows=2738 width=20) (actual time=0.773..9.498 rows=2689.00 loops=1)
+                          Filter: ((status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (status = 'HIRED'::text))
+                          Rows Removed by Filter: 147295
+                          Buffers: shared hit=1408
+                    ->  Hash  (cost=372.00..372.00 rows=15000 width=8) (actual time=2.275..2.275 rows=15000.00 loops=1)
+                          Buckets: 16384  Batches: 1  Memory Usage: 714kB
+                          Buffers: shared hit=222
+                          ->  Seq Scan on jobs j  (cost=0.00..372.00 rows=15000 width=8) (actual time=0.004..1.183 rows=15000.00 loops=1)
+                                Buffers: shared hit=222
+              ->  Hash  (cost=46.00..46.00 rows=2000 width=23) (actual time=0.352..0.352 rows=2000.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 128kB
+                    Buffers: shared hit=26
+                    ->  Seq Scan on companies c  (cost=0.00..46.00 rows=2000 width=23) (actual time=0.005..0.161 rows=2000.00 loops=1)
+                          Buffers: shared hit=26
+Planning:
+  Buffers: shared hit=329
+Planning Time: 0.917 ms
+Execution Time: 14.748 ms

@@ -1,0 +1,75 @@
+=== R25 run 1 ===
+Limit  (cost=15129.19..15129.44 rows=100 width=16) (actual time=63.736..63.746 rows=100.00 loops=1)
+  Buffers: shared hit=982, temp read=253 written=254
+  ->  Sort  (cost=15129.19..15212.47 rows=33313 width=16) (actual time=63.735..63.739 rows=100.00 loops=1)
+        Sort Key: ((t.start_date - t.prev_end)) DESC, t.member_id
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=982, temp read=253 written=254
+        ->  Subquery Scan on t  (cost=10274.82..13855.99 rows=33313 width=16) (actual time=25.100..63.110 rows=6606.00 loops=1)
+              Filter: ((t.start_date - t.prev_end) > 182)
+              Rows Removed by Filter: 93334
+              Buffers: shared hit=979, temp read=253 written=254
+              ->  WindowAgg  (cost=10274.82..12273.60 rows=99940 width=12) (actual time=25.087..58.237 rows=99940.00 loops=1)
+                    Window: w1 AS (PARTITION BY positions.member_id ORDER BY positions.start_date)
+                    Storage: Memory  Maximum Storage: 17kB
+                    Buffers: shared hit=979, temp read=253 written=254
+                    ->  Sort  (cost=10274.80..10524.65 rows=99940 width=12) (actual time=25.075..31.231 rows=99940.00 loops=1)
+                          Sort Key: positions.member_id, positions.start_date
+                          Sort Method: external merge  Disk: 2024kB
+                          Buffers: shared hit=979, temp read=253 written=254
+                          ->  Seq Scan on positions  (cost=0.00..1975.40 rows=99940 width=12) (actual time=0.005..8.866 rows=99940.00 loops=1)
+                                Buffers: shared hit=976
+Planning:
+  Buffers: shared hit=87
+Planning Time: 0.285 ms
+Execution Time: 64.413 ms
+=== R25 run 2 ===
+Limit  (cost=15129.19..15129.44 rows=100 width=16) (actual time=64.022..64.032 rows=100.00 loops=1)
+  Buffers: shared hit=982, temp read=253 written=254
+  ->  Sort  (cost=15129.19..15212.47 rows=33313 width=16) (actual time=64.021..64.025 rows=100.00 loops=1)
+        Sort Key: ((t.start_date - t.prev_end)) DESC, t.member_id
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=982, temp read=253 written=254
+        ->  Subquery Scan on t  (cost=10274.82..13855.99 rows=33313 width=16) (actual time=25.056..63.420 rows=6606.00 loops=1)
+              Filter: ((t.start_date - t.prev_end) > 182)
+              Rows Removed by Filter: 93334
+              Buffers: shared hit=979, temp read=253 written=254
+              ->  WindowAgg  (cost=10274.82..12273.60 rows=99940 width=12) (actual time=25.044..58.679 rows=99940.00 loops=1)
+                    Window: w1 AS (PARTITION BY positions.member_id ORDER BY positions.start_date)
+                    Storage: Memory  Maximum Storage: 17kB
+                    Buffers: shared hit=979, temp read=253 written=254
+                    ->  Sort  (cost=10274.80..10524.65 rows=99940 width=12) (actual time=25.032..31.222 rows=99940.00 loops=1)
+                          Sort Key: positions.member_id, positions.start_date
+                          Sort Method: external merge  Disk: 2024kB
+                          Buffers: shared hit=979, temp read=253 written=254
+                          ->  Seq Scan on positions  (cost=0.00..1975.40 rows=99940 width=12) (actual time=0.005..8.935 rows=99940.00 loops=1)
+                                Buffers: shared hit=976
+Planning:
+  Buffers: shared hit=87
+Planning Time: 0.274 ms
+Execution Time: 64.541 ms
+=== R25 run 3 ===
+Limit  (cost=15129.19..15129.44 rows=100 width=16) (actual time=63.494..63.505 rows=100.00 loops=1)
+  Buffers: shared hit=982, temp read=253 written=254
+  ->  Sort  (cost=15129.19..15212.47 rows=33313 width=16) (actual time=63.493..63.497 rows=100.00 loops=1)
+        Sort Key: ((t.start_date - t.prev_end)) DESC, t.member_id
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=982, temp read=253 written=254
+        ->  Subquery Scan on t  (cost=10274.82..13855.99 rows=33313 width=16) (actual time=24.870..62.858 rows=6606.00 loops=1)
+              Filter: ((t.start_date - t.prev_end) > 182)
+              Rows Removed by Filter: 93334
+              Buffers: shared hit=979, temp read=253 written=254
+              ->  WindowAgg  (cost=10274.82..12273.60 rows=99940 width=12) (actual time=24.858..58.021 rows=99940.00 loops=1)
+                    Window: w1 AS (PARTITION BY positions.member_id ORDER BY positions.start_date)
+                    Storage: Memory  Maximum Storage: 17kB
+                    Buffers: shared hit=979, temp read=253 written=254
+                    ->  Sort  (cost=10274.80..10524.65 rows=99940 width=12) (actual time=24.844..31.036 rows=99940.00 loops=1)
+                          Sort Key: positions.member_id, positions.start_date
+                          Sort Method: external merge  Disk: 2024kB
+                          Buffers: shared hit=979, temp read=253 written=254
+                          ->  Seq Scan on positions  (cost=0.00..1975.40 rows=99940 width=12) (actual time=0.005..8.965 rows=99940.00 loops=1)
+                                Buffers: shared hit=976
+Planning:
+  Buffers: shared hit=87
+Planning Time: 0.284 ms
+Execution Time: 64.763 ms

@@ -1,0 +1,63 @@
+=== R01 run 1 ===
+Nested Loop Left Join  (cost=0.57..2241.87 rows=1 width=78) (actual time=1.558..9.280 rows=1.00 loops=1)
+  Buffers: shared hit=2 read=980
+  ->  Nested Loop Left Join  (cost=0.29..2233.57 rows=1 width=63) (actual time=1.380..9.101 rows=1.00 loops=1)
+        Buffers: shared read=979
+        ->  Index Scan using members_pkey on members m  (cost=0.29..8.31 rows=1 width=44) (actual time=0.494..0.496 rows=1.00 loops=1)
+              Index Cond: (member_id = 1023)
+              Index Searches: 1
+              Buffers: shared read=3
+        ->  Seq Scan on positions p  (cost=0.00..2225.25 rows=1 width=23) (actual time=0.884..8.603 rows=1.00 loops=1)
+              Filter: ((end_date IS NULL) AND (member_id = 1023))
+              Rows Removed by Filter: 99939
+              Buffers: shared read=976
+  ->  Index Scan using companies_pkey on companies c  (cost=0.28..8.29 rows=1 width=23) (actual time=0.176..0.176 rows=1.00 loops=1)
+        Index Cond: (company_id = p.company_id)
+        Index Searches: 1
+        Buffers: shared hit=2 read=1
+Planning:
+  Buffers: shared hit=237 read=41
+Planning Time: 5.002 ms
+Execution Time: 9.338 ms
+=== R01 run 2 ===
+Nested Loop Left Join  (cost=0.57..2241.87 rows=1 width=78) (actual time=0.177..6.479 rows=1.00 loops=1)
+  Buffers: shared hit=982
+  ->  Nested Loop Left Join  (cost=0.29..2233.57 rows=1 width=63) (actual time=0.173..6.474 rows=1.00 loops=1)
+        Buffers: shared hit=979
+        ->  Index Scan using members_pkey on members m  (cost=0.29..8.31 rows=1 width=44) (actual time=0.006..0.007 rows=1.00 loops=1)
+              Index Cond: (member_id = 1023)
+              Index Searches: 1
+              Buffers: shared hit=3
+        ->  Seq Scan on positions p  (cost=0.00..2225.25 rows=1 width=23) (actual time=0.166..6.466 rows=1.00 loops=1)
+              Filter: ((end_date IS NULL) AND (member_id = 1023))
+              Rows Removed by Filter: 99939
+              Buffers: shared hit=976
+  ->  Index Scan using companies_pkey on companies c  (cost=0.28..8.29 rows=1 width=23) (actual time=0.003..0.003 rows=1.00 loops=1)
+        Index Cond: (company_id = p.company_id)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=283
+Planning Time: 0.773 ms
+Execution Time: 6.519 ms
+=== R01 run 3 ===
+Nested Loop Left Join  (cost=0.57..2241.87 rows=1 width=78) (actual time=0.179..6.178 rows=1.00 loops=1)
+  Buffers: shared hit=982
+  ->  Nested Loop Left Join  (cost=0.29..2233.57 rows=1 width=63) (actual time=0.175..6.173 rows=1.00 loops=1)
+        Buffers: shared hit=979
+        ->  Index Scan using members_pkey on members m  (cost=0.29..8.31 rows=1 width=44) (actual time=0.008..0.009 rows=1.00 loops=1)
+              Index Cond: (member_id = 1023)
+              Index Searches: 1
+              Buffers: shared hit=3
+        ->  Seq Scan on positions p  (cost=0.00..2225.25 rows=1 width=23) (actual time=0.165..6.163 rows=1.00 loops=1)
+              Filter: ((end_date IS NULL) AND (member_id = 1023))
+              Rows Removed by Filter: 99939
+              Buffers: shared hit=976
+  ->  Index Scan using companies_pkey on companies c  (cost=0.28..8.29 rows=1 width=23) (actual time=0.003..0.003 rows=1.00 loops=1)
+        Index Cond: (company_id = p.company_id)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=283
+Planning Time: 0.767 ms
+Execution Time: 6.219 ms

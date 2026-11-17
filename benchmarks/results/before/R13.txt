@@ -1,0 +1,36 @@
+=== R13 run 1 ===
+Seq Scan on members m  (cost=3763.95..4919.95 rows=20000 width=16) (actual time=41.415..41.415 rows=0.00 loops=1)
+  Filter: (NOT (ANY (member_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 40000
+  Buffers: shared hit=1267 read=653
+  SubPlan 1
+    ->  Seq Scan on profile_views v  (cost=0.00..3263.96 rows=199996 width=4) (actual time=0.007..11.739 rows=199996.00 loops=1)
+          Buffers: shared hit=1264
+Planning:
+  Buffers: shared hit=93
+Planning Time: 0.362 ms
+Execution Time: 41.475 ms
+=== R13 run 2 ===
+Seq Scan on members m  (cost=3763.95..4919.95 rows=20000 width=16) (actual time=38.845..38.845 rows=0.00 loops=1)
+  Filter: (NOT (ANY (member_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 40000
+  Buffers: shared hit=1920
+  SubPlan 1
+    ->  Seq Scan on profile_views v  (cost=0.00..3263.96 rows=199996 width=4) (actual time=0.009..11.525 rows=199996.00 loops=1)
+          Buffers: shared hit=1264
+Planning:
+  Buffers: shared hit=93
+Planning Time: 0.347 ms
+Execution Time: 38.901 ms
+=== R13 run 3 ===
+Seq Scan on members m  (cost=3763.95..4919.95 rows=20000 width=16) (actual time=39.139..39.139 rows=0.00 loops=1)
+  Filter: (NOT (ANY (member_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 40000
+  Buffers: shared hit=1920
+  SubPlan 1
+    ->  Seq Scan on profile_views v  (cost=0.00..3263.96 rows=199996 width=4) (actual time=0.006..11.583 rows=199996.00 loops=1)
+          Buffers: shared hit=1264
+Planning:
+  Buffers: shared hit=93
+Planning Time: 0.347 ms
+Execution Time: 39.194 ms
