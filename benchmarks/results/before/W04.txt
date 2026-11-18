@@ -1,0 +1,33 @@
+=== W04 run 1 ===
+Update on jobs  (cost=0.00..447.00 rows=0 width=0) (actual time=9.425..9.426 rows=0.00 loops=1)
+  Buffers: shared hit=4255 read=36 dirtied=258 written=8
+  ->  Seq Scan on jobs  (cost=0.00..447.00 rows=1632 width=38) (actual time=0.019..2.163 rows=552.00 loops=1)
+        Filter: ((closes_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (status = 'OPEN'::text))
+        Rows Removed by Filter: 14448
+        Buffers: shared hit=222
+Planning:
+  Buffers: shared hit=66
+Planning Time: 0.439 ms
+Execution Time: 9.571 ms
+=== W04 run 2 ===
+Update on jobs  (cost=0.00..463.12 rows=0 width=0) (actual time=7.512..7.512 rows=0.00 loops=1)
+  Buffers: shared hit=4620 dirtied=8 written=8
+  ->  Seq Scan on jobs  (cost=0.00..463.12 rows=1691 width=38) (actual time=0.026..2.701 rows=552.00 loops=1)
+        Filter: ((closes_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (status = 'OPEN'::text))
+        Rows Removed by Filter: 14448
+        Buffers: shared hit=230
+Planning:
+  Buffers: shared hit=66
+Planning Time: 0.456 ms
+Execution Time: 7.653 ms
+=== W04 run 3 ===
+Update on jobs  (cost=0.00..479.22 rows=0 width=0) (actual time=10.003..10.003 rows=0.00 loops=1)
+  Buffers: shared hit=4658 dirtied=8 written=8
+  ->  Seq Scan on jobs  (cost=0.00..479.22 rows=1750 width=38) (actual time=0.023..3.168 rows=552.00 loops=1)
+        Filter: ((closes_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (status = 'OPEN'::text))
+        Rows Removed by Filter: 14448
+        Buffers: shared hit=238
+Planning:
+  Buffers: shared hit=66
+Planning Time: 0.347 ms
+Execution Time: 10.133 ms

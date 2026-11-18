@@ -1,0 +1,105 @@
+=== R19 run 1 ===
+Sort  (cost=212869.86..212870.36 rows=200 width=39) (actual time=402.293..402.301 rows=200.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=106800
+  ->  Seq Scan on companies c  (cost=0.00..212862.21 rows=200 width=39) (actual time=3.115..402.228 rows=200.00 loops=1)
+        Filter: (industry = 'IT Services'::text)
+        Rows Removed by Filter: 1800
+        Buffers: shared hit=106797
+        SubPlan 1
+          ->  Aggregate  (cost=447.00..447.01 rows=1 width=8) (actual time=1.254..1.254 rows=1.00 loops=200)
+                Buffers: shared hit=44400
+                ->  Seq Scan on jobs j  (cost=0.00..447.00 rows=1 width=0) (actual time=1.091..1.253 rows=0.82 loops=200)
+                      Filter: ((company_id = c.company_id) AND (status = 'OPEN'::text))
+                      Rows Removed by Filter: 14999
+                      Buffers: shared hit=44400
+        SubPlan 2
+          ->  Aggregate  (cost=617.03..617.04 rows=1 width=8) (actual time=0.755..0.755 rows=1.00 loops=200)
+                Buffers: shared hit=62371
+                ->  Nested Loop  (cost=0.42..617.02 rows=4 width=0) (actual time=0.719..0.754 rows=3.96 loops=200)
+                      Buffers: shared hit=62371
+                      ->  Seq Scan on jobs j_1  (cost=0.00..409.50 rows=8 width=4) (actual time=0.123..0.712 rows=6.97 loops=200)
+                            Filter: (company_id = c.company_id)
+                            Rows Removed by Filter: 14993
+                            Buffers: shared hit=44400
+                      ->  Index Scan using uq_job_application on applications a  (cost=0.42..25.93 rows=1 width=4) (actual time=0.005..0.006 rows=0.57 loops=1394)
+                            Index Cond: (job_id = j_1.job_id)
+                            Filter: (applied_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                            Rows Removed by Filter: 9
+                            Index Searches: 1394
+                            Buffers: shared hit=17971
+Planning:
+  Buffers: shared hit=299
+Planning Time: 0.804 ms
+Execution Time: 402.382 ms
+=== R19 run 2 ===
+Sort  (cost=212869.86..212870.36 rows=200 width=39) (actual time=401.066..401.074 rows=200.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=106800
+  ->  Seq Scan on companies c  (cost=0.00..212862.21 rows=200 width=39) (actual time=2.936..401.002 rows=200.00 loops=1)
+        Filter: (industry = 'IT Services'::text)
+        Rows Removed by Filter: 1800
+        Buffers: shared hit=106797
+        SubPlan 1
+          ->  Aggregate  (cost=447.00..447.01 rows=1 width=8) (actual time=1.253..1.253 rows=1.00 loops=200)
+                Buffers: shared hit=44400
+                ->  Seq Scan on jobs j  (cost=0.00..447.00 rows=1 width=0) (actual time=1.090..1.252 rows=0.82 loops=200)
+                      Filter: ((company_id = c.company_id) AND (status = 'OPEN'::text))
+                      Rows Removed by Filter: 14999
+                      Buffers: shared hit=44400
+        SubPlan 2
+          ->  Aggregate  (cost=617.03..617.04 rows=1 width=8) (actual time=0.750..0.750 rows=1.00 loops=200)
+                Buffers: shared hit=62371
+                ->  Nested Loop  (cost=0.42..617.02 rows=4 width=0) (actual time=0.714..0.750 rows=3.96 loops=200)
+                      Buffers: shared hit=62371
+                      ->  Seq Scan on jobs j_1  (cost=0.00..409.50 rows=8 width=4) (actual time=0.124..0.708 rows=6.97 loops=200)
+                            Filter: (company_id = c.company_id)
+                            Rows Removed by Filter: 14993
+                            Buffers: shared hit=44400
+                      ->  Index Scan using uq_job_application on applications a  (cost=0.42..25.93 rows=1 width=4) (actual time=0.005..0.006 rows=0.57 loops=1394)
+                            Index Cond: (job_id = j_1.job_id)
+                            Filter: (applied_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                            Rows Removed by Filter: 9
+                            Index Searches: 1394
+                            Buffers: shared hit=17971
+Planning:
+  Buffers: shared hit=299
+Planning Time: 0.801 ms
+Execution Time: 401.149 ms
+=== R19 run 3 ===
+Sort  (cost=212869.86..212870.36 rows=200 width=39) (actual time=409.664..409.673 rows=200.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=106800
+  ->  Seq Scan on companies c  (cost=0.00..212862.21 rows=200 width=39) (actual time=2.944..409.585 rows=200.00 loops=1)
+        Filter: (industry = 'IT Services'::text)
+        Rows Removed by Filter: 1800
+        Buffers: shared hit=106797
+        SubPlan 1
+          ->  Aggregate  (cost=447.00..447.01 rows=1 width=8) (actual time=1.279..1.279 rows=1.00 loops=200)
+                Buffers: shared hit=44400
+                ->  Seq Scan on jobs j  (cost=0.00..447.00 rows=1 width=0) (actual time=1.114..1.278 rows=0.82 loops=200)
+                      Filter: ((company_id = c.company_id) AND (status = 'OPEN'::text))
+                      Rows Removed by Filter: 14999
+                      Buffers: shared hit=44400
+        SubPlan 2
+          ->  Aggregate  (cost=617.03..617.04 rows=1 width=8) (actual time=0.767..0.767 rows=1.00 loops=200)
+                Buffers: shared hit=62371
+                ->  Nested Loop  (cost=0.42..617.02 rows=4 width=0) (actual time=0.730..0.766 rows=3.96 loops=200)
+                      Buffers: shared hit=62371
+                      ->  Seq Scan on jobs j_1  (cost=0.00..409.50 rows=8 width=4) (actual time=0.126..0.721 rows=6.97 loops=200)
+                            Filter: (company_id = c.company_id)
+                            Rows Removed by Filter: 14993
+                            Buffers: shared hit=44400
+                      ->  Index Scan using uq_job_application on applications a  (cost=0.42..25.93 rows=1 width=4) (actual time=0.006..0.006 rows=0.57 loops=1394)
+                            Index Cond: (job_id = j_1.job_id)
+                            Filter: (applied_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                            Rows Removed by Filter: 9
+                            Index Searches: 1394
+                            Buffers: shared hit=17971
+Planning:
+  Buffers: shared hit=299
+Planning Time: 0.813 ms
+Execution Time: 409.751 ms
